@@ -18,7 +18,10 @@ taken from different genomes with a common ancestor, we get a measure of
 the minimum number of point mutations that could have occurred on the
 evolutionary path between the two strands.
 
-This is called the 'Hamming distance'
+This is called the 'Hamming distance'.
+
+It is found by comparing two DNA strands and counting how many of the
+nucleotides are different from their equivalent in the other string.
 
     GAGCCTACTAACGGGAT
     CATCGTAATGACGGCCT
@@ -32,6 +35,11 @@ The Hamming distance is only defined for sequences of equal length. This means
 that based on the definition, each language could deal with getting sequences
 of equal length differently.
 
+Refer exercism help page at http://help.exercism.io/getting-started-with-ruby.html for ruby installation and learning resources.
+
+For running the tests provided, you will need the Minitest gem. Open a terminal window and run the following command to install minitest:
+
+    gem install minitest
 
 ## Source
 
