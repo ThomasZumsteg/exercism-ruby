@@ -1,5 +1,5 @@
 class Gigasecond
-  def Gigasecond.from date
+  def self.from date
     return date + 10**9
   end
 end
