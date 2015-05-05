@@ -6,12 +6,11 @@ class School
 
   def to_hash
     # Returns in a sorted order
-    Hash[ @school_db.sort.map{ |grade, students| [grade, students] } ] 
+    Hash[ @school_db.sort ] 
   end
 
   def add(student, grade)
-    @school_db[grade] << student
-    @school_db[grade].sort!
+    @school_db[grade].push(student).sort!
   end
 
   def grade(grade)
