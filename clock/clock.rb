@@ -1,9 +1,14 @@
 class Clock
   # Keeps track of time
 
-  def self.at(hours, *minutes)
+  def initialize(hours, minutes)
+    dh, @minutes = minutes.divmod(60)
+    @hours = (hours + dh) % 24
+  end
+
+  def self.at(hours, minutes=0)
     # sets a clock
-    Clock.new(hours, minutes[0] || 0)
+    Clock.new(hours, minutes)
   end
 
   def to_s
@@ -24,10 +29,5 @@ class Clock
   def ==(other)
     # Test of two clock are equal
     to_s == other.to_s
-  end
-
-  def initialize(hours, minutes)
-    dh, @minutes = minutes.divmod(60)
-    @hours = (hours + dh) % 24
   end
 end
