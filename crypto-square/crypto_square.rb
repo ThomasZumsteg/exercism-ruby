@@ -17,7 +17,7 @@ class Crypto
 
   private
 
-  def rotate matrix
+  def rotate(matrix)
     # transpose for ragged arrays of strings
     segments = matrix.map{ |group| group.split('') }
     segments[0].zip(*segments[1..-1]).map{ |line| line.join }
