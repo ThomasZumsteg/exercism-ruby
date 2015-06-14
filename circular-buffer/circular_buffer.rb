@@ -5,28 +5,25 @@ class CircularBuffer
   end
   
   def read
-    raise CircularBuffer::BufferEmptyException if @buffer.empty?
+    raise BufferEmptyException if @buffer.empty?
     @buffer.shift
   end
 
   def write(data)
-    raise CircularBuffer::BufferFullException if @buffer.length >= @length
+    raise BufferFullException if @buffer.length >= @length
     self.write!(data)
   end
 
   def write!(data)
     return unless data
     @buffer.shift if @buffer.length >= @length
-    @buffer.push(data)
+    @buffer << data
   end
 
   def clear
     @buffer.clear
   end
-end
 
-class CircularBuffer::BufferEmptyException < StandardError
-end
-
-class CircularBuffer::BufferFullException < StandardError
+  class BufferEmptyException < StandardError; end
+  class BufferFullException < StandardError; end
 end
