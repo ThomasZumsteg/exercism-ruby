@@ -14,8 +14,11 @@ class Robot
     @@names_in_use.delete(@name)
     loop do
       @name = [*'A'..'Z'].sample + [*'A'..'Z'].sample
-      @name += "%03d" % [*0...1000].sample
-      return if not @@names_in_use.include?(name)
+      @name += "%03d" % rand(0..1000)
+      if not @@names_in_use.include?(name)
+          @@names_in_use << @name
+          return
+      end
     end
   end
 end
