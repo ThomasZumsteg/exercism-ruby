@@ -1,4 +1,5 @@
 module Acronym
+  VERSION = 1
   def self.abbreviate(phrase)
     # Look ahead for the "-", Find an uppercase letter or word bondary
     # Discard everything until the next uppercase letter or space or "-"
