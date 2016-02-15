@@ -1,69 +1,77 @@
+#!/usr/bin/env ruby
+gem 'minitest', '>= 5.0.0'
 require 'minitest/autorun'
-begin
-  require_relative 'hamming'
-rescue LoadError => e
-  puts "\n\n#{e.backtrace.first} #{e.message}"
-  puts DATA.read
-  exit 1
-end
+require_relative 'hamming'
+
+# Test data version:
+# ab84334 Merge pull request #106 from bennn/grep-meta
 
 class HammingTest < Minitest::Test
-  def test_no_difference_between_identical_strands
+  def test_identical_strands
     assert_equal 0, Hamming.compute('A', 'A')
   end
 
-  def test_complete_hamming_distance_of_single_nucleotide_strand
+  def test_long_identical_strands
+    assert_equal 0, Hamming.compute('GGACTGA', 'GGACTGA')
+  end
+
+  def test_complete_distance_in_single_nucleotide_strands
     assert_equal 1, Hamming.compute('A', 'G')
   end
 
-  def test_complete_hamming_distance_of_small_strand
+  def test_complete_distance_in_small_strands
     assert_equal 2, Hamming.compute('AG', 'CT')
   end
 
-  def test_small_hamming_distance
+  def test_small_distance_in_small_strands
     assert_equal 1, Hamming.compute('AT', 'CT')
   end
 
-  def test_small_hamming_distance_in_longer_strand
+  def test_small_distance
     assert_equal 1, Hamming.compute('GGACG', 'GGTCG')
   end
 
-  def test_nonunique_characters_within_first_strand
+  def test_small_distance_in_long_strands
+    assert_equal 2, Hamming.compute('ACCAGGG', 'ACTATGG')
+  end
+
+  def test_non_unique_character_in_first_strand
     assert_equal 1, Hamming.compute('AGA', 'AGG')
   end
 
-  def test_nonunique_characters_within_second_strand
+  def test_non_unique_character_in_second_strand
     assert_equal 1, Hamming.compute('AGG', 'AGA')
   end
 
-  def test_large_hamming_distance
+  def test_large_distance
     assert_equal 4, Hamming.compute('GATACA', 'GCATAA')
   end
 
-  def test_hamming_distance_in_very_long_strand
+  def test_large_distance_in_off_by_one_strand
     assert_equal 9, Hamming.compute('GGACGGATTCTG', 'AGGACGGATTCT')
   end
+
+  def test_empty_strands
+    assert_equal 0, Hamming.compute('', '')
+  end
+
+  def test_disallow_first_strand_longer
+    assert_raises(ArgumentError) { Hamming.compute('AATG', 'AAA') }
+  end
+
+  def test_disallow_second_strand_longer
+    assert_raises(ArgumentError) { Hamming.compute('ATA', 'AGTG') }
+  end
+
+  # Problems in exercism evolve over time,
+  # as we find better ways to ask questions.
+  # The version number refers to the version of the problem you solved,
+  # not your solution.
+  #
+  # Define a constant named VERSION inside of Hamming.
+  # If you are curious, read more about constants on RubyDoc:
+  # http://ruby-doc.org/docs/ruby-doc-bundle/UsersGuide/rg/constants.html
+  def test_bookkeeping
+    assert_equal 1, Hamming::VERSION
+  end
 end
-
-__END__
-
-*****************************************************
-You got an error, which is exactly as it should be.
-This is the first step in the Test-Driven Development
-(TDD) process.
-
-The most important part of the error is
-
-      cannot load such file
-
-It's looking for a file named hamming.rb that doesn't
-exist yet.
-
-To fix the error, create an empty file named hamming.rb
-in the same directory as the hamming_test.rb file.
-
-Then run the test again.
-
-For more guidance as you work on this exercise, see
-GETTING_STARTED.md.
-*****************************************************
