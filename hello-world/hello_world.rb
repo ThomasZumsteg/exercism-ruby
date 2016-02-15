@@ -1,6 +1,6 @@
 module HelloWorld
   # Hello world
-  def self.hello(name)
-    "Hello, #{name==''?'world':name}!"
+  def self.hello(name="World")
+    "Hello, #{name}!"
   end
 end
