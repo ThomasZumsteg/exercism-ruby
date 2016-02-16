@@ -1,14 +1,18 @@
-require 'date'
+#!/usr/bin/env ruby
+gem 'minitest', '>= 5.0.0'
 require 'minitest/autorun'
 require_relative 'leap'
+
+# Test data version:
+# 463e543 Corrected typo
 
 class Date
   def leap?
     throw "Implement this yourself instead of using Ruby's implementation."
   end
 
-  alias_method :gregorian_leap?, :leap?
-  alias_method :julian_leap?, :leap?
+  alias gregorian_leap? leap?
+  alias julian_leap? leap?
 end
 
 class YearTest < Minitest::Test
@@ -30,5 +34,21 @@ class YearTest < Minitest::Test
 
   def test_fourth_century
     assert Year.leap?(2400), 'Yes, 2400 is a leap year'
+  end
+
+  def test_y2k
+    assert Year.leap?(2000), 'Yes, 2000 is a leap year'
+  end
+
+  # Problems in exercism evolve over time,
+  # as we find better ways to ask questions.
+  # The version number refers to the version of the problem you solved,
+  # not your solution.
+  #
+  # Define a constant named VERSION inside of Leap.
+  # If you are curious, read more about constants on RubyDoc:
+  # http://ruby-doc.org/docs/ruby-doc-bundle/UsersGuide/rg/constants.html
+  def test_bookkeeping
+    assert_equal 1, Year::VERSION
   end
 end
