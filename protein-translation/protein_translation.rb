@@ -16,8 +16,8 @@ class Translation
     "UAU" => "Tyrosine",            
     "UAC" => "Tyrosine",
 
-    "UGU" => "Cystine",           
-    "UGC" => "Cystine",           
+    "UGU" => "Cysteine",           
+    "UGC" => "Cysteine",           
 
     "UGG" => "Tryptophan",                 
  
@@ -30,9 +30,9 @@ class Translation
     PROTEINS[codon]
   end
 
-  def self.of_rna(rna)
+  def self.of_rna(strand)
     protines = []
-    rna.each_char.each_slice(3) do |*rna|
+    strand.each_char.each_slice(3) do |*rna|
       raise InvalidCodonError unless PROTEINS.key?(*rna.join(''))
       protines << of_codon(rna.join(''))
       return protines[0..-2] if protines[-1] == "STOP"
