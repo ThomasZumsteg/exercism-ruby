@@ -42,8 +42,8 @@ class OCR
 ]
 
   def initialize(text)
-    @lines = text.split("\n\n").map do |line|
-      len = ((line.split("\n").map(&:length).max - 1)/ 3) * 3 + 3
+    @lines = text.split(/\n\s*\n/).map do |line|
+      len = line.split("\n").map(&:length).max
       top, *bottom = line.split("\n").map{ |row| ("%-#{len}s" % row).scan(/.{1,3}/) }
       top.zip(*bottom).map { |char| ("%-3s\n" * 3) % [*char] }
     end
