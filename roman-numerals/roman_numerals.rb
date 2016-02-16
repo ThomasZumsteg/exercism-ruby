@@ -1,4 +1,5 @@
 module RomanNumerals
+ VERSION=1
  DIGITS = [[   '',  '',  '',   ''], #0
             '   I    X    C    M'.split(' '), #1
             '  II   XX   CC   MM'.split(' '), #2

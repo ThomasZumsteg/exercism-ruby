@@ -1,7 +1,12 @@
+#!/usr/bin/env ruby
+gem 'minitest', '>= 5.0.0'
 require 'minitest/autorun'
 require_relative 'roman_numerals'
 
-class RomanTest < Minitest::Test
+# Test data version:
+# 6985644 Merge pull request #121 from mikeyjcat/add-roman-numerals
+
+class RomanNumeralsTest < Minitest::Test
   def test_1
     assert_equal 'I', 1.to_roman
   end
@@ -72,5 +77,10 @@ class RomanTest < Minitest::Test
 
   def test_3000
     assert_equal 'MMM', 3000.to_roman
+  end
+
+  # Don't foget to define a constant VERSION inside of Fixnum.
+  def test_bookkeeping
+    assert_equal 1, Fixnum::VERSION
   end
 end
