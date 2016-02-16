@@ -1,5 +1,6 @@
 module Raindrops
   # Makes raindrop sounds from numbers
+  VERSION=1
 
   @@sounds = { 3 => 'Pling', 5 => 'Plang', 7 => 'Plong' }
   
