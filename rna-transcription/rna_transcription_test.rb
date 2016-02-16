@@ -1,5 +1,10 @@
+#!/usr/bin/env ruby
+gem 'minitest', '>= 5.0.0'
 require 'minitest/autorun'
 require_relative 'rna_transcription'
+
+# Test data version:
+# 3b07e53 Merge pull request #117 from mikeyjcat/add-raindrops-json
 
 class ComplementTest < Minitest::Test
   def test_rna_complement_of_cytosine_is_guanine
@@ -22,31 +27,27 @@ class ComplementTest < Minitest::Test
     assert_equal 'UGCACCAGAAUU', Complement.of_dna('ACGTGGTCTTAA')
   end
 
-  def test_dna_complement_of_cytosine_is_guanine
-    assert_equal 'G', Complement.of_rna('C')
+  def test_correctly_handles_invalid_input
+    assert_raises(ArgumentError) { Complement.of_dna('U') }
   end
 
-  def test_dna_complement_of_guanine_is_cytosine
-    assert_equal 'C', Complement.of_rna('G')
+  def test_correctly_handles_completely_invalid_inputs
+    assert_raises(ArgumentError) { Complement.of_dna('XXX') }
   end
 
-  def test_dna_complement_of_uracil_is_adenine
-    assert_equal 'A', Complement.of_rna('U')
+  def test_correctly_handles_partially_invalid_inputs
+    assert_raises(ArgumentError) { Complement.of_dna('ACGTXXXCTTAA') }
   end
 
-  def test_dna_complement_of_adenine_is_thymine
-    assert_equal 'T', Complement.of_rna('A')
-  end
-
-  def test_dna_complement
-    assert_equal 'ACTTGGGCTGTAC', Complement.of_rna('UGAACCCGACAUG')
-  end
-
-  def test_dna_raises_argument_error
-    assert_raises(ArgumentError){ Complement.of_dna('U') }
-  end
-
-  def test_rna_raises_argument_error
-    assert_raises(ArgumentError){ Complement.of_rna('T') }
+  # Problems in exercism evolve over time,
+  # as we find better ways to ask questions.
+  # The version number refers to the version of the problem you solved,
+  # not your solution.
+  #
+  # Define a constant named VERSION inside of Complement.
+  # If you are curious, read more about constants on RubyDoc:
+  # http://ruby-doc.org/docs/ruby-doc-bundle/UsersGuide/rg/constants.html
+  def test_bookkeeping
+    assert_equal 3, Complement::VERSION
   end
 end

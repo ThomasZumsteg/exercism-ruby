@@ -1,5 +1,6 @@
 module Complement
   # Converts between dna and rna
+  VERSION=3
   @@dna_to_rna = { "G"=>"C", "A"=>"U", "T"=>"A", "C"=>"G" }
   @@rna_to_dna = @@dna_to_rna.invert
   
@@ -10,7 +11,7 @@ module Complement
     rescue(TypeError)
       raise ArgumentError
     end
- end
+  end
 
   def self.of_rna rna
     # Converts rna to dna
