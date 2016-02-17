@@ -1,5 +1,9 @@
+#!/usr/bin/env ruby
+gem 'minitest', '>= 5.0.0'
 require 'minitest/autorun'
 require_relative 'word_count'
+
+# Test data version:
 
 class PhraseTest < Minitest::Test
   def test_count_one_word
@@ -70,5 +74,26 @@ class PhraseTest < Minitest::Test
       'then' => 1, 'cry' => 1
     }
     assert_equal counts, phrase.word_count
+  end
+
+  def test_with_quotations
+    phrase = Phrase.new("Joe can't tell between 'large' and large.")
+    counts = {
+      'joe' => 1, "can't" => 1, 'tell' => 1,
+      'between' => 1, 'large' => 2, 'and' => 1
+    }
+    assert_equal counts, phrase.word_count
+  end
+
+  # Problems in exercism evolve over time,
+  # as we find better ways to ask questions.
+  # The version number refers to the version of the problem you solved,
+  # not your solution.
+  #
+  # Define a constant named VERSION inside of Phrase.
+  # If you're curious, read more about constants on RubyDoc:
+  # http://ruby-doc.org/docs/ruby-doc-bundle/UsersGuide/rg/constants.html
+  def test_bookkeeping
+    assert_equal 1, Phrase::VERSION
   end
 end
